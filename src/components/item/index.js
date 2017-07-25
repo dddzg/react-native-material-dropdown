@@ -10,6 +10,7 @@ export default class DropdownItem extends PureComponent {
     color: 'transparent',
     rippleContainerBorderRadius: 0,
     shadeBorderRadius: 0,
+    container: Button
   };
 
   static propTypes = {
@@ -46,21 +47,16 @@ export default class DropdownItem extends PureComponent {
       style,
       animationDuration,
       baseColor,
+      container,
       ...props
     } = this.props;
 
     return (
-      <Button
-        {...props}
-
-        style={[styles.container, style]}
-        rippleDuration={animationDuration * 2}
-        rippleColor={baseColor}
-        shadeColor={baseColor}
-        onPress={this.onPress}
-      >
-        {children}
-      </Button>
+      React.cloneElement(container, {
+        ...props,
+        style:[styles.container, style],
+        onPress:this.onPress
+      },children)
     );
   }
 }
