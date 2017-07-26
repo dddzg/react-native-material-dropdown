@@ -308,7 +308,7 @@ export default class Dropdown extends PureComponent {
         paddingRight: rightInset,
       },
     };
-
+    fontSize=this.props.textStyle.fontSize
     return data
       .map(({ value }, index) => {
         let color = ~selected?
@@ -376,13 +376,23 @@ export default class Dropdown extends PureComponent {
       <View onLayout={() => undefined} ref={this.updateContainerRef} style={containerStyle}>
         <TouchableWithoutFeedback onPress={this.onPress}>
           <View pointerEvents='box-only'>
-            <TextField
-              {...props}
-              value={value}
-              editable={false}
-              onChangeText={undefined}
-              renderAccessory={this.renderAccessory}
-            />
+            {this.props.label ?
+              <TextField
+                {...props}
+                value={value}
+                editable={false}
+                onChangeText={undefined}
+                renderAccessory={this.renderAccessory}
+              />:
+              <View style={{flexDirection: 'row',alignItems:'center',justifyContent:'flex-end'}}>
+                <Text
+                  style={this.props.textStyle}
+                >
+                  {value}
+                </Text>
+                {this.renderAccessory()}
+              </View>
+            }
           </View>
         </TouchableWithoutFeedback>
 

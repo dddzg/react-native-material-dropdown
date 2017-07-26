@@ -1,6 +1,7 @@
+import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 import * as React from 'react'
 interface IDropdownProps {
-  label:string,
+  label?:string,
   error?:string,
   fontSize?:number,
   labelFontSize?:number,
@@ -12,6 +13,7 @@ interface IDropdownProps {
   value?:string,
   containerStyle?:Object,
   onChangeText?:Function,
-  container?:JSX.Element
+  container:JSX.Element,
+  textStyle?:StyleProp<TextStyle>
 }
 export class Dropdown extends React.Component<IDropdownProps>{}
