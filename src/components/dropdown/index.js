@@ -33,6 +33,11 @@ export default class Dropdown extends PureComponent {
     baseColor: 'rgba(0, 0, 0, .38)',
 
     itemCount: 4,
+    textStyle: {
+      fontSize: 14,
+      fontWeight: '400',
+      color: '#444'
+    }
   };
 
   static propTypes = {
