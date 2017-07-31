@@ -388,6 +388,7 @@ export default class Dropdown extends PureComponent {
                 editable={false}
                 onChangeText={undefined}
                 renderAccessory={this.renderAccessory}
+                fontSize={this.props.labelFontSize}
               />:
               <View style={{flexDirection: 'row',alignItems:'center',justifyContent:'flex-end'}}>
                 <Text
