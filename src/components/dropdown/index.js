@@ -381,7 +381,8 @@ export default class Dropdown extends PureComponent {
       <View onLayout={() => undefined} ref={this.updateContainerRef} style={containerStyle}>
         <TouchableWithoutFeedback onPress={this.onPress}>
           <View pointerEvents='box-only'>
-            {this.props.label ?
+            {
+              this.props.children ||
               <TextField
                 {...props}
                 value={value}
@@ -389,15 +390,7 @@ export default class Dropdown extends PureComponent {
                 onChangeText={undefined}
                 renderAccessory={this.renderAccessory}
                 fontSize={this.props.labelFontSize}
-              />:
-              <View style={{flexDirection: 'row',alignItems:'center',justifyContent:'flex-end'}}>
-                <Text
-                  style={this.props.textStyle}
-                >
-                  {value}
-                </Text>
-                {this.renderAccessory()}
-              </View>
+              />
             }
           </View>
         </TouchableWithoutFeedback>
