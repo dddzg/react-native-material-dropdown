@@ -332,7 +332,14 @@ export default class Dropdown extends PureComponent {
 
   render() {
     let { value, left, top, width, opacity, selected, modal } = this.state;
-    let { data = [], containerStyle, container, ...props } = this.props;
+    let {
+      data = [],
+      containerStyle,
+      container,
+      dropdownPosition,
+      pickerStyle: pickerStyleOverrides,
+      ...props
+    } = this.props;
     let { baseColor, animationDuration } = props;
 
     let dimensions = Dimensions.get('window');
@@ -350,20 +357,28 @@ export default class Dropdown extends PureComponent {
     let height = 16 + itemSize * visibleItemCount;
     let translateY = -8;
 
-    switch (selected) {
-      case -1:
-        translateY -= 1 === itemCount? 0 : itemSize;
-        break;
+    if (null == dropdownPosition) {
+      switch (selected) {
+        case -1:
+          translateY -= 1 === itemCount? 0 : itemSize;
+          break;
 
-      case 0:
-        break;
+        case 0:
+          break;
 
-      default:
-        if (selected >= itemCount - tailItemCount) {
-          translateY -= (visibleItemCount - (itemCount - selected)) * itemSize;
-        } else {
-          translateY -= itemSize;
-        }
+        default:
+          if (selected >= itemCount - tailItemCount) {
+            translateY -= (visibleItemCount - (itemCount - selected)) * itemSize;
+          } else {
+            translateY -= itemSize;
+          }
+      }
+    } else {
+      if (dropdownPosition < 0) {
+        translateY -= itemSize * (visibleItemCount + dropdownPosition);
+      } else {
+        translateY -= itemSize * dropdownPosition;
+      }
     }
 
     let pickerStyle = {
@@ -398,7 +413,7 @@ export default class Dropdown extends PureComponent {
         <Modal visible={modal} transparent={true} onRequestClose={this.onClose}>
           <TouchableWithoutFeedback onPress={this.onClose}>
             <View style={overlayStyle}>
-              <Animated.View style={[styles.picker, pickerStyle]}>
+              <Animated.View style={[styles.picker, pickerStyle, pickerStyleOverrides]}>
                 <ScrollView
                   ref={this.updateScrollRef}
                   style={styles.scroll}

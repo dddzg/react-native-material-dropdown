@@ -14,6 +14,8 @@ interface IDropdownProps {
   containerStyle?:Object,
   onChangeText?:Function,
   container:JSX.Element,
-  textStyle?:StyleProp<TextStyle>
+  textStyle?:StyleProp<TextStyle>,
+  pickerStyle?:StyleProp<TextStyle>,
+  dropdownPosition?:number
 }
 export class Dropdown extends React.Component<IDropdownProps>{}
